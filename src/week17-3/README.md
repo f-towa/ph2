@@ -33,3 +33,15 @@ mysql>
 
 ### 注意点
 mysqlのpasswordはdocker-compose.ymlの27行目にて設定しています
+
+# 解答                                                                            1.0s
+PS C:\Users\towaz\ph2\drill-ph2> docker compose exec db bash
+bash-5.1# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.4.11 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its

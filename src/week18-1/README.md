@@ -18,3 +18,50 @@ array(3) { ["name"]=> string(5) "Posse" ["age"]=> int(38) ["address"]=> string(5
 ```
 
 ※修正箇所はindex.phpの3行目です。
+
+
+# Answer
+
+〇docker-compose.yml
+
+version: "3"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./src/week18-1:/var/www/html
+    depends_on:
+      - php
+  php:
+    build: ./php
+    volumes:
+      - ./src/week18-1:/var/www/html
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: "./db/Dockerfile"
+    environment:
+      - MYSQL_DATABASE=ph2drill
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - ./db/:/etc/mysql/conf.d
+      - ./src/week18-1:/var/www/html
+
+〇index.php
+<?php
+
+$posse = [
+    'name' => 'Posse',
+    'age' => 38,
+    'address' => 'Tokyo'
+];
+var_dump($posse);
